@@ -17,3 +17,15 @@ function divide(a, b) {
 function operate(operation, a, b) {
   return operation(a, b);
 }
+
+const display = document.querySelector('#display');
+const digits = document.querySelectorAll('.digits button');
+
+let displayValue = 0;
+
+digits.forEach((digit) => {
+  digit.addEventListener('click', (e) => {
+    displayValue = parseInt(display.textContent += e.target.textContent);
+    console.log(displayValue);
+  });
+});
