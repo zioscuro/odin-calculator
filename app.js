@@ -30,10 +30,11 @@ function operate(operation, a, b) {
 }
 
 // DOM ELEMENTS
-const display = document.querySelector('#display');
 const digits = document.querySelectorAll('.digits button');
 const operators = document.querySelectorAll('.operators button');
+const display = document.querySelector('#display');
 const equalsButton = document.querySelector('#equals');
+const clearButton = document.querySelector('#clear');
 
 // CALCULATOR VARIABLES
 let displayValue = 0;
@@ -67,4 +68,12 @@ equalsButton.addEventListener('click', (e) => {
   displayValue = 0;
  
   console.log('current result: ' + currentResult);
+});
+
+clearButton.addEventListener('click', () => {
+  displayValue = 0;
+  storedValue = 0;
+  currentOperator = undefined;
+  currentResult = undefined;
+  display.textContent = '';
 });
