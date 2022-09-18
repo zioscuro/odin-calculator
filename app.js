@@ -14,7 +14,7 @@ let currentResult;
 // CALCULATOR BUTTONS EVENT LISTENERS
 digits.forEach((digit) => {
   digit.addEventListener('click', (e) => {
-    displayValue = parseInt((display.textContent += e.target.textContent));
+    displayValue = Number(display.textContent += e.target.textContent);
     console.log('display: ' + displayValue);
   });
 });
@@ -43,8 +43,8 @@ equalsButton.addEventListener('click', () => {
   if (currentOperator) {
     currentResult = operate(currentOperator, storedValue, displayValue);
 
-    storedValue = currentResult;
-    display.textContent = currentResult;
+    storedValue = (currentResult % 1 === 0) ? currentResult : currentResult.toFixed(2);
+    display.textContent = storedValue;
     displayValue = 0;
 
     console.log('stored: ' + storedValue);
