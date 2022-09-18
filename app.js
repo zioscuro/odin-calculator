@@ -65,13 +65,15 @@ operators.forEach((operator) => {
   });
 });
 
-equalsButton.addEventListener('click', (e) => { 
-  currentResult = operate(selectOperator(currentOperator), storedValue, displayValue);
-
-  display.textContent = currentResult;
-  displayValue = 0;
- 
-  console.log('current result: ' + currentResult);
+equalsButton.addEventListener('click', () => { 
+  if (displayValue && currentOperator) {
+    currentResult = operate(selectOperator(currentOperator), storedValue, displayValue);
+  
+    display.textContent = currentResult;
+    displayValue = 0;
+   
+    console.log('current result: ' + currentResult);
+  } 
 });
 
 clearButton.addEventListener('click', () => {
