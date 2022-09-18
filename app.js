@@ -12,6 +12,10 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if (b == 0) {
+    console.error('can\'t divide by zero!');
+    return 'Not Today!';
+  }
   return a / b;
 }
 
