@@ -5,6 +5,7 @@ const display = document.querySelector('#display');
 const dotButton = document.querySelector('#dot');
 const equalsButton = document.querySelector('#equals');
 const clearButton = document.querySelector('#clear');
+const backspaceButton = document.querySelector('#backspace');
 
 // CALCULATOR VARIABLES
 let displayValue = 0;
@@ -17,7 +18,6 @@ let currentResult;
 digits.forEach((digit) => {
   digit.addEventListener('click', (e) => {
     displayValue = Number((display.textContent += e.target.textContent));
-    console.log('display: ' + displayValue);
   });
 });
 
@@ -31,14 +31,10 @@ operators.forEach((operator) => {
         ? operate(currentOperator, storedValue, displayValue)
         : displayValue;
     }
-
     currentOperator = selectOperator(e.target.id);
     dotPressed = false;
     displayValue = 0;
     display.textContent = '';
-
-    console.log('stored: ' + storedValue);
-    console.log('operator: ' + e.target.id);
   });
 });
 
@@ -46,30 +42,32 @@ dotButton.addEventListener('click', (e) => {
   if (!dotPressed) {
     displayValue = Number((display.textContent += e.target.textContent));
     dotPressed = true;
-    console.log('display: ' + displayValue);
   }
 });
 
 equalsButton.addEventListener('click', () => {
   if (currentOperator) {
     currentResult = operate(currentOperator, storedValue, displayValue);
-
     storedValue =
       currentResult % 1 === 0 ? currentResult : currentResult.toFixed(2);
     display.textContent = storedValue;
     displayValue = 0;
-
-    console.log('stored: ' + storedValue);
-    console.log('current result: ' + currentResult);
   }
 });
 
 clearButton.addEventListener('click', () => {
   displayValue = 0;
   storedValue = 0;
+  dotPressed = false;
   currentOperator = undefined;
   currentResult = undefined;
   display.textContent = '';
+});
+
+backspaceButton.addEventListener('click', () => {
+  displayValue = Number(
+    (display.textContent = display.textContent.slice(0, -1))
+  );
 });
 
 // MATH FUNCTIONS
