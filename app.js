@@ -2,6 +2,7 @@
 const digits = document.querySelectorAll('.digits button');
 const operators = document.querySelectorAll('.operators button');
 const display = document.querySelector('#display');
+const formula = document.querySelector('#formula');
 const dotButton = document.querySelector('#dot');
 const equalsButton = document.querySelector('#equals');
 const clearButton = document.querySelector('#clear');
@@ -17,6 +18,7 @@ let currentResult;
 // CALCULATOR BUTTONS EVENT LISTENERS
 digits.forEach((digit) => {
   digit.addEventListener('click', (e) => {
+    formula.textContent += e.target.textContent;
     displayValue = Number((display.textContent += e.target.textContent));
   });
 });
@@ -24,6 +26,7 @@ digits.forEach((digit) => {
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
     if (currentResult) {
+      formula.textContent = currentResult;
       storedValue = currentResult;
       currentResult = undefined;
     } else {
@@ -34,12 +37,15 @@ operators.forEach((operator) => {
     currentOperator = selectOperator(e.target.id);
     dotPressed = false;
     displayValue = 0;
+
+    formula.textContent += ' ' + e.target.textContent + ' ';
     display.textContent = '';
   });
 });
 
 dotButton.addEventListener('click', (e) => {
   if (!dotPressed) {
+    formula.textContent += e.target.textContent;
     displayValue = Number((display.textContent += e.target.textContent));
     dotPressed = true;
   }
@@ -50,6 +56,7 @@ equalsButton.addEventListener('click', () => {
     currentResult = operate(currentOperator, storedValue, displayValue);
     storedValue =
       currentResult % 1 === 0 ? currentResult : currentResult.toFixed(2);
+    formula.textContent = '';
     display.textContent = storedValue;
     displayValue = 0;
   }
@@ -61,10 +68,14 @@ clearButton.addEventListener('click', () => {
   dotPressed = false;
   currentOperator = undefined;
   currentResult = undefined;
+  formula.textContent = '';
   display.textContent = '';
 });
 
 backspaceButton.addEventListener('click', () => {
+  if (formula.textContent[formula.textContent.length - 1] !== ' ') {
+    formula.textContent = formula.textContent.slice(0, -1);
+  }
   displayValue = Number(
     (display.textContent = display.textContent.slice(0, -1))
   );
