@@ -1,6 +1,6 @@
 // DOM ELEMENTS
-const digits = document.querySelectorAll('.digits button');
-const operators = document.querySelectorAll('.operators button');
+const digits = document.querySelectorAll('.key.digit');
+const operators = document.querySelectorAll('.key.operator');
 const display = document.querySelector('#display');
 const formula = document.querySelector('#formula');
 const dotButton = document.querySelector('#dot');

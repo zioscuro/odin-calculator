@@ -1,7 +1,151 @@
-h1 {
-  color: red;
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #a7a9be;
+  font-family: 'Inconsolata', monospace;
+}
+
+.calculator {
+  background-color: #282a35;
+  box-shadow: 0px 5px 10px 0px #282a35;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.screen {
+  background-color: #fffffe;
+  border-radius: 5px;
+  height: 70px;
+  margin-bottom: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+#display {
+  font-size: 40px;
 }
 
 #formula {
-  color: red;
+  font-size: 25px;
+  color: #e53170;
+}
+
+.keys {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    'AC CC dv ml'
+    'sv ei ni sb'
+    'fo fi si ad'
+    'on tw tr eq'
+    'ze ze dt eq';
+  gap: 10px;
+}
+
+.keys button {
+  border: none;
+  border-radius: 20px;
+  font-size: 30px;
+  background-color: lightgray;
+}
+
+.keys button:hover {
+  border: 3px solid white;
+  opacity: 90%;
+}
+
+#clear {
+  grid-area: AC;
+  background-color: #f25f4c
+}
+
+#backspace {
+  grid-area: CC;
+  background-color: #f25f4c
+}
+
+#divide {
+  grid-area: dv;
+}
+
+#multiply {
+  grid-area: ml;
+}
+
+#subtract {
+  grid-area: sb;
+}
+
+#add {
+  grid-area: ad;
+}
+
+#equals {
+  grid-area: eq;
+  background-color: #ff8906
+}
+
+#dot {
+  grid-area: dt;
+}
+
+#zero {
+  grid-area: ze;
+}
+
+#one {
+  grid-area: on;
+}
+
+#two {
+  grid-area: tw;
+}
+
+#three {
+  grid-area: tr;
+}
+
+#four {
+  grid-area: fo;
+}
+
+#five {
+  grid-area: fi;
+}
+
+#six {
+  grid-area: si;
+}
+
+#seven {
+  grid-area: sv;
+}
+
+#eight {
+  grid-area: ei;
+}
+
+#nine {
+  grid-area: ni;
 }
