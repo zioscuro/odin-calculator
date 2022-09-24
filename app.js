@@ -1,3 +1,43 @@
+// MATH FUNCTIONS
+const add = function addTwoNumbers(a, b) {
+  return a + b;
+};
+
+const subtract = function subtractNumBfromNumA(a, b) {
+  return a - b;
+};
+
+const multiply = function multiplyTwoNumbers(a, b) {
+  return a * b;
+};
+
+const divide = function divideNumAbyNumB(a, b) {
+  if (b == 0) {
+    console.error("can't divide by zero!");
+    return 'Not Today!';
+  }
+  return a / b;
+};
+
+const selectOperator = function selectOperatorFromString(operator) {
+  switch (operator) {
+    case '+':
+      return add;
+    case '-':
+      return subtract;
+    case '*':
+      return multiply;
+    case '/':
+      return divide;
+    default:
+      console.error('operator not supported!');
+  }
+};
+
+const operate = function performMathOperation(operation, a, b) {
+  return operation(a, b);
+};
+
 // DOM ELEMENTS
 const digits = document.querySelectorAll('.key.digit');
 const operators = document.querySelectorAll('.key.operator');
@@ -14,69 +54,6 @@ let storedValue = 0;
 let dotPressed = false;
 let currentOperator;
 let currentResult;
-
-// CALCULATOR BUTTONS EVENT LISTENERS
-digits.forEach((digit) => {
-  digit.addEventListener('click', (e) => {
-    pushDigit(e.target.textContent);
-  });
-});
-
-operators.forEach((operator) => {
-  operator.addEventListener('click', (e) => {
-    pushOperator(e.target.textContent);
-  });
-});
-
-dotButton.addEventListener('click', () => {
-  pushDot();
-});
-
-equalsButton.addEventListener('click', () => {
-  pushEquals();
-  // if (currentOperator) {
-  //   currentResult = operate(currentOperator, storedValue, displayValue);
-  //   storedValue =
-  //     currentResult % 1 === 0 ? currentResult : currentResult.toFixed(2);
-  //   formula.textContent = '';
-  //   display.textContent = storedValue;
-  //   displayValue = 0;
-  // }
-});
-
-clearButton.addEventListener('click', () => {
-  pushClear();
-  // displayValue = 0;
-  // storedValue = 0;
-  // dotPressed = false;
-  // currentOperator = undefined;
-  // currentResult = undefined;
-  // formula.textContent = '';
-  // display.textContent = '';
-});
-
-backspaceButton.addEventListener('click', () => {
-  pushBackspace();
-});
-
-// KEYBOARD EVENT LISTENER
-const digitKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operatorKeys = ['+', '-', '*', '/'];
-const dotKey = '.';
-const equalsKey = 'Enter';
-const clearKey = 'Delete';
-const backspaceKey = 'Backspace';
-
-window.addEventListener('keydown', (e) => {
-  const pressedKey = e.key;
-
-  if (digitKeys.indexOf(pressedKey) != -1) pushDigit(pressedKey);
-  if (operatorKeys.indexOf(pressedKey) != -1) pushOperator(pressedKey);
-  if (pressedKey === dotKey) pushDot();
-  if (pressedKey === equalsKey) pushEquals();
-  if (pressedKey === clearKey) pushClear();
-  if (pressedKey === backspaceKey) pushBackspace();
-});
 
 // CALCULATOR OPERATIONS FUNCTIONS
 const pushDigit = function pushDigitOnCalculator(num) {
@@ -140,42 +117,50 @@ const pushBackspace = function pushBackspaceOnCalculator() {
   );
 };
 
-// MATH FUNCTIONS
-const add = function addTwoNumbers(a, b) {
-  return a + b;
-};
+// CALCULATOR BUTTONS EVENT LISTENERS
+digits.forEach((digit) => {
+  digit.addEventListener('click', (e) => {
+    pushDigit(e.target.textContent);
+  });
+});
 
-const subtract = function subtractNumBfromNumA(a, b) {
-  return a - b;
-};
+operators.forEach((operator) => {
+  operator.addEventListener('click', (e) => {
+    pushOperator(e.target.textContent);
+  });
+});
 
-const multiply = function multiplyTwoNumbers(a, b) {
-  return a * b;
-};
+dotButton.addEventListener('click', () => {
+  pushDot();
+});
 
-const divide = function divideNumAbyNumB(a, b) {
-  if (b == 0) {
-    console.error("can't divide by zero!");
-    return 'Not Today!';
-  }
-  return a / b;
-};
+equalsButton.addEventListener('click', () => {
+  pushEquals();
+});
 
-const selectOperator = function selectOperatorFromString(operator) {
-  switch (operator) {
-    case '+':
-      return add;
-    case '-':
-      return subtract;
-    case '*':
-      return multiply;
-    case '/':
-      return divide;
-    default:
-      console.error('operator not supported!');
-  }
-};
+clearButton.addEventListener('click', () => {
+  pushClear();
+});
 
-const operate = function performMathOperation(operation, a, b) {
-  return operation(a, b);
-};
+backspaceButton.addEventListener('click', () => {
+  pushBackspace();
+});
+
+// KEYBOARD EVENT LISTENER
+const digitKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const operatorKeys = ['+', '-', '*', '/'];
+const dotKey = '.';
+const equalsKey = 'Enter';
+const clearKey = 'Delete';
+const backspaceKey = 'Backspace';
+
+window.addEventListener('keydown', (e) => {
+  const pressedKey = e.key;
+
+  if (digitKeys.indexOf(pressedKey) != -1) pushDigit(pressedKey);
+  if (operatorKeys.indexOf(pressedKey) != -1) pushOperator(pressedKey);
+  if (pressedKey === dotKey) pushDot();
+  if (pressedKey === equalsKey) pushEquals();
+  if (pressedKey === clearKey) pushClear();
+  if (pressedKey === backspaceKey) pushBackspace();
+});
