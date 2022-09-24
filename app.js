@@ -82,27 +82,27 @@ backspaceButton.addEventListener('click', () => {
 });
 
 // MATH FUNCTIONS
-function add(a, b) {
+const add = function addTwoNumbers(a, b) {
   return a + b;
-}
+};
 
-function subtract(a, b) {
+const subtract = function subtractNumBfromNumA(a, b) {
   return a - b;
-}
+};
 
-function multiply(a, b) {
+const multiply = function multiplyTwoNumbers(a, b) {
   return a * b;
-}
+};
 
-function divide(a, b) {
+const divide = function divideNumAbyNumB(a, b) {
   if (b == 0) {
     console.error("can't divide by zero!");
     return 'Not Today!';
   }
   return a / b;
-}
+};
 
-function selectOperator(operator) {
+const selectOperator = function selectOperatorFromString(operator) {
   switch (operator) {
     case 'add':
       return add;
@@ -115,8 +115,8 @@ function selectOperator(operator) {
     default:
       console.error('operator not supported!');
   }
-}
+};
 
-function operate(operation, a, b) {
+const operate = function performMathOperation(operation, a, b) {
   return operation(a, b);
-}
+};
