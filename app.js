@@ -18,40 +18,80 @@ let currentResult;
 // CALCULATOR BUTTONS EVENT LISTENERS
 digits.forEach((digit) => {
   digit.addEventListener('click', (e) => {
-    formula.textContent += e.target.textContent;
-    displayValue = Number((display.textContent += e.target.textContent));
+    pushDigit(e.target.textContent);
   });
 });
 
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-    if (currentResult) {
-      formula.textContent = currentResult;
-      storedValue = currentResult;
-      currentResult = undefined;
-    } else {
-      storedValue = currentOperator
-        ? operate(currentOperator, storedValue, displayValue)
-        : displayValue;
-    }
-    currentOperator = selectOperator(e.target.id);
-    dotPressed = false;
-    displayValue = 0;
-
-    formula.textContent += ' ' + e.target.textContent + ' ';
-    display.textContent = '';
+    pushOperator(e.target.id, e.target.textContent);
   });
 });
 
-dotButton.addEventListener('click', (e) => {
-  if (!dotPressed) {
-    formula.textContent += e.target.textContent;
-    displayValue = Number((display.textContent += e.target.textContent));
-    dotPressed = true;
-  }
+dotButton.addEventListener('click', () => {
+  pushDot();
 });
 
 equalsButton.addEventListener('click', () => {
+  pushEquals();
+  // if (currentOperator) {
+  //   currentResult = operate(currentOperator, storedValue, displayValue);
+  //   storedValue =
+  //     currentResult % 1 === 0 ? currentResult : currentResult.toFixed(2);
+  //   formula.textContent = '';
+  //   display.textContent = storedValue;
+  //   displayValue = 0;
+  // }
+});
+
+clearButton.addEventListener('click', () => {
+  pushClear();
+  // displayValue = 0;
+  // storedValue = 0;
+  // dotPressed = false;
+  // currentOperator = undefined;
+  // currentResult = undefined;
+  // formula.textContent = '';
+  // display.textContent = '';
+});
+
+backspaceButton.addEventListener('click', () => {
+  pushBackspace();
+});
+
+// CALCULATOR OPERATIONS FUNCTIONS
+const pushDigit = function pushDigitOnCalculator(num) {
+  formula.textContent += num;
+  displayValue = Number((display.textContent += num));
+};
+
+const pushOperator = function pushOperatorOnCalculator(oprName, oprSymbol) {
+  if (currentResult) {
+    formula.textContent = currentResult;
+    storedValue = currentResult;
+    currentResult = undefined;
+  } else {
+    storedValue = currentOperator
+      ? operate(currentOperator, storedValue, displayValue)
+      : displayValue;
+  }
+  currentOperator = selectOperator(oprName);
+  dotPressed = false;
+  displayValue = 0;
+
+  formula.textContent += ' ' + oprSymbol + ' ';
+  display.textContent = '';
+};
+
+const pushDot = function pushDotOnCalculator() {
+  if (!dotPressed) {
+    formula.textContent += '.';
+    displayValue = Number((display.textContent += '.'));
+    dotPressed = true;
+  }
+};
+
+const pushEquals = function pushEqualsOnCalculator() {
   if (currentOperator) {
     currentResult = operate(currentOperator, storedValue, displayValue);
     storedValue =
@@ -60,9 +100,9 @@ equalsButton.addEventListener('click', () => {
     display.textContent = storedValue;
     displayValue = 0;
   }
-});
+};
 
-clearButton.addEventListener('click', () => {
+const pushClear = function pushClearOnCalculator() {
   displayValue = 0;
   storedValue = 0;
   dotPressed = false;
@@ -70,16 +110,16 @@ clearButton.addEventListener('click', () => {
   currentResult = undefined;
   formula.textContent = '';
   display.textContent = '';
-});
+};
 
-backspaceButton.addEventListener('click', () => {
+const pushBackspace = function pushBackspaceOnCalculator() {
   if (formula.textContent[formula.textContent.length - 1] !== ' ') {
     formula.textContent = formula.textContent.slice(0, -1);
   }
   displayValue = Number(
     (display.textContent = display.textContent.slice(0, -1))
   );
-});
+};
 
 // MATH FUNCTIONS
 const add = function addTwoNumbers(a, b) {
