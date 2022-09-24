@@ -24,7 +24,7 @@ digits.forEach((digit) => {
 
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-    pushOperator(e.target.id, e.target.textContent);
+    pushOperator(e.target.textContent);
   });
 });
 
@@ -59,13 +59,32 @@ backspaceButton.addEventListener('click', () => {
   pushBackspace();
 });
 
+// KEYBOARD EVENT LISTENER
+const digitKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const operatorKeys = ['+', '-', '*', '/'];
+const dotKey = '.';
+const equalsKey = 'Enter';
+const clearKey = 'Delete';
+const backspaceKey = 'Backspace';
+
+window.addEventListener('keydown', (e) => {
+  const pressedKey = e.key;
+
+  if (digitKeys.indexOf(pressedKey) != -1) pushDigit(pressedKey);
+  if (operatorKeys.indexOf(pressedKey) != -1) pushOperator(pressedKey);
+  if (pressedKey === dotKey) pushDot();
+  if (pressedKey === equalsKey) pushEquals();
+  if (pressedKey === clearKey) pushClear();
+  if (pressedKey === backspaceKey) pushBackspace();
+});
+
 // CALCULATOR OPERATIONS FUNCTIONS
 const pushDigit = function pushDigitOnCalculator(num) {
   formula.textContent += num;
   displayValue = Number((display.textContent += num));
 };
 
-const pushOperator = function pushOperatorOnCalculator(oprName, oprSymbol) {
+const pushOperator = function pushOperatorOnCalculator(opr) {
   if (currentResult) {
     formula.textContent = currentResult;
     storedValue = currentResult;
@@ -75,11 +94,11 @@ const pushOperator = function pushOperatorOnCalculator(oprName, oprSymbol) {
       ? operate(currentOperator, storedValue, displayValue)
       : displayValue;
   }
-  currentOperator = selectOperator(oprName);
+  currentOperator = selectOperator(opr);
   dotPressed = false;
   displayValue = 0;
 
-  formula.textContent += ' ' + oprSymbol + ' ';
+  formula.textContent += ' ' + opr + ' ';
   display.textContent = '';
 };
 
@@ -144,13 +163,13 @@ const divide = function divideNumAbyNumB(a, b) {
 
 const selectOperator = function selectOperatorFromString(operator) {
   switch (operator) {
-    case 'add':
+    case '+':
       return add;
-    case 'subtract':
+    case '-':
       return subtract;
-    case 'multiply':
+    case '*':
       return multiply;
-    case 'divide':
+    case '/':
       return divide;
     default:
       console.error('operator not supported!');
