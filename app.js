@@ -74,8 +74,9 @@ const pushOperator = function pushOperatorOnCalculator(opr) {
   currentOperator = selectOperator(opr);
   dotPressed = false;
   displayValue = 0;
-
-  formula.textContent += ' ' + opr + ' ';
+  formula.textContent === ''
+    ? (formula.textContent = `0 ${opr} `)
+    : (formula.textContent += ` ${opr} `);
   display.textContent = '';
 };
 
@@ -156,7 +157,6 @@ const backspaceKey = 'Backspace';
 
 window.addEventListener('keydown', (e) => {
   const pressedKey = e.key;
-
   if (digitKeys.indexOf(pressedKey) != -1) pushDigit(pressedKey);
   if (operatorKeys.indexOf(pressedKey) != -1) pushOperator(pressedKey);
   if (pressedKey === dotKey) pushDot();
