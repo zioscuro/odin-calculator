@@ -52,6 +52,7 @@ const backspaceButton = document.querySelector('#backspace');
 let displayValue = 0;
 let storedValue = 0;
 let dotPressed = false;
+let operatorPressed = false;
 let currentOperator;
 let currentResult;
 
@@ -59,32 +60,43 @@ let currentResult;
 const pushDigit = function pushDigitOnCalculator(num) {
   formula.textContent += num;
   displayValue = Number((display.textContent += num));
+  operatorPressed = false;
 };
 
 const pushOperator = function pushOperatorOnCalculator(opr) {
-  if (currentResult) {
-    formula.textContent = currentResult;
-    storedValue = currentResult;
-    currentResult = undefined;
-  } else {
-    storedValue = currentOperator
-      ? operate(currentOperator, storedValue, displayValue)
-      : displayValue;
+  if (!operatorPressed) {
+    if (currentResult) {
+      formula.textContent = currentResult;
+      storedValue = currentResult;
+      currentResult = undefined;
+    } else {
+      storedValue = currentOperator
+        ? operate(currentOperator, storedValue, displayValue)
+        : displayValue;
+    }
+    currentOperator = selectOperator(opr);
+    displayValue = 0;
+    formula.textContent === ''
+      ? (formula.textContent = `0 ${opr} `)
+      : (formula.textContent += ` ${opr} `);
+    display.textContent = '';
+    dotPressed = false;
+    operatorPressed = true;
   }
-  currentOperator = selectOperator(opr);
-  dotPressed = false;
-  displayValue = 0;
-  formula.textContent === ''
-    ? (formula.textContent = `0 ${opr} `)
-    : (formula.textContent += ` ${opr} `);
-  display.textContent = '';
 };
 
 const pushDot = function pushDotOnCalculator() {
   if (!dotPressed) {
-    formula.textContent += '.';
-    displayValue = Number((display.textContent += '.'));
+    formula.textContent[formula.textContent.length - 1] == ' '
+      ? (formula.textContent += '0.')
+      : (formula.textContent += '.');
+    displayValue = Number(
+      display.textContent == ''
+        ? (display.textContent = '0.')
+        : (display.textContent += '.')
+    );
     dotPressed = true;
+    operatorPressed = false;
   }
 };
 
@@ -103,6 +115,7 @@ const pushClear = function pushClearOnCalculator() {
   displayValue = 0;
   storedValue = 0;
   dotPressed = false;
+  operatorPressed = false;
   currentOperator = undefined;
   currentResult = undefined;
   formula.textContent = '';
