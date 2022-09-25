@@ -75,7 +75,6 @@ const pushOperator = function pushOperatorOnCalculator(opr) {
         : displayValue;
     }
     currentOperator = selectOperator(opr);
-    displayValue = 0;
     formula.textContent === ''
       ? (formula.textContent = `0 ${opr} `)
       : (formula.textContent += ` ${opr} `);
@@ -87,7 +86,7 @@ const pushOperator = function pushOperatorOnCalculator(opr) {
 
 const pushDot = function pushDotOnCalculator() {
   if (!dotPressed) {
-    formula.textContent[formula.textContent.length - 1] == ' '
+    formula.textContent.slice(-1) == ' '
       ? (formula.textContent += '0.')
       : (formula.textContent += '.');
     displayValue = Number(
@@ -108,6 +107,7 @@ const pushEquals = function pushEqualsOnCalculator() {
     formula.textContent = '';
     display.textContent = storedValue;
     displayValue = 0;
+    currentOperator = undefined;
   }
 };
 
@@ -123,9 +123,9 @@ const pushClear = function pushClearOnCalculator() {
 };
 
 const pushBackspace = function pushBackspaceOnCalculator() {
-  if (formula.textContent[formula.textContent.length - 1] !== ' ') {
+  if (formula.textContent.slice(-1) !== ' ')
     formula.textContent = formula.textContent.slice(0, -1);
-  }
+
   displayValue = Number(
     (display.textContent = display.textContent.slice(0, -1))
   );
@@ -161,19 +161,29 @@ backspaceButton.addEventListener('click', () => {
 });
 
 // KEYBOARD EVENT LISTENER
-const digitKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operatorKeys = ['+', '-', '*', '/'];
-const dotKey = '.';
-const equalsKey = 'Enter';
-const clearKey = 'Delete';
-const backspaceKey = 'Backspace';
-
 window.addEventListener('keydown', (e) => {
   const pressedKey = e.key;
-  if (digitKeys.indexOf(pressedKey) != -1) pushDigit(pressedKey);
-  if (operatorKeys.indexOf(pressedKey) != -1) pushOperator(pressedKey);
-  if (pressedKey === dotKey) pushDot();
-  if (pressedKey === equalsKey) pushEquals();
-  if (pressedKey === clearKey) pushClear();
-  if (pressedKey === backspaceKey) pushBackspace();
+  const digitKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const operatorKeys = ['+', '-', '*', '/'];
+
+  if (digitKeys.indexOf(pressedKey) !== -1) {
+    pushDigit(pressedKey)
+  } else if (operatorKeys.indexOf(pressedKey) !== -1) {
+    pushOperator(pressedKey)
+  } else {
+    switch (pressedKey) {
+      case '.':
+        pushDot();
+        break;
+      case 'Enter':
+        pushEquals();
+        break;
+      case 'Delete':
+        pushClear();
+        break;
+      case 'Backspace':
+        pushBackspace();
+        break;
+    }
+  }
 });
