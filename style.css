@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -8,43 +6,43 @@
 
 body {
   height: 100vh;
+  background-color: #a7a9be;
+  font-family: 'Inconsolata', monospace;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #a7a9be;
-  font-family: 'Inconsolata', monospace;
 }
 
 .calculator {
-  background-color: #282a35;
-  box-shadow: 0px 5px 10px 0px #282a35;
-  border-radius: 5px;
-  padding: 20px;
   width: 300px;
   height: 450px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #282a35;
+  box-shadow: 0px 5px 10px 0px #282a35;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
 }
 
 .screen {
-  background-color: #fffffe;
-  border-radius: 5px;
   height: 70px;
   margin-bottom: 10px;
   padding: 5px;
+  border-radius: 5px;
+  background-color: #fffffe;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-#display {
+.screen #display {
   font-size: 40px;
 }
 
-#formula {
+.screen #formula {
   font-size: 25px;
   color: #e53170;
 }
@@ -58,8 +56,8 @@ body {
     'AC CC dv ml'
     'sv ei ni sb'
     'fo fi si ad'
-    'on tw tr eq'
-    'ze ze dt eq';
+    'on tw tr EQ'
+    'ze ze dt EQ';
   gap: 10px;
 }
 
@@ -75,77 +73,77 @@ body {
   opacity: 90%;
 }
 
-#clear {
+.keys button#clear {
   grid-area: AC;
   background-color: #f25f4c
 }
 
-#backspace {
+.keys button#backspace {
   grid-area: CC;
   background-color: #f25f4c
 }
 
-#divide {
+.keys button#divide {
   grid-area: dv;
 }
 
-#multiply {
+.keys button#multiply {
   grid-area: ml;
 }
 
-#subtract {
+.keys button#subtract {
   grid-area: sb;
 }
 
-#add {
+.keys button#add {
   grid-area: ad;
 }
 
-#equals {
-  grid-area: eq;
+.keys button#equals {
+  grid-area: EQ;
   background-color: #ff8906
 }
 
-#dot {
+.keys button#dot {
   grid-area: dt;
 }
 
-#zero {
+.keys button#zero {
   grid-area: ze;
 }
 
-#one {
+.keys button#one {
   grid-area: on;
 }
 
-#two {
+.keys button#two {
   grid-area: tw;
 }
 
-#three {
+.keys button#three {
   grid-area: tr;
 }
 
-#four {
+.keys button#four {
   grid-area: fo;
 }
 
-#five {
+.keys button#five {
   grid-area: fi;
 }
 
-#six {
+.keys button#six {
   grid-area: si;
 }
 
-#seven {
+.keys button#seven {
   grid-area: sv;
 }
 
-#eight {
+.keys button#eight {
   grid-area: ei;
 }
 
-#nine {
+.keys button#nine {
   grid-area: ni;
 }
